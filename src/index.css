@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@font-face {
+    font-family: 'Coda';
+    src: url('assets/Coda-Regular.ttf') format('truetype'); 
+    font-weight: normal; /* Specify the weight if needed */
+    font-style: normal; /* Specify the style if needed */
+  }
+:root{
+    --red-pink-main: #FD5D69;
+    --whitebeige:#FFFDF9;  
+    --black-beige:#1C0F0D;
+    --pink:#FFC6C9;
+    --pink-sup-color:#EC888D;
+    --red-pink-main:#FD5D69;
+}
+
+body {
+    font-family: "Coda", sans-serif;
+    color: var(--color-light--2);
+    font-weight: 400;
+    line-height: 1.6;
+  }
+  
