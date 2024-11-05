@@ -24,7 +24,7 @@ const {launchScreen, dispatch, darkTheme} = useProvider();
     return () => clearTimeout(timer)
   }, [dispatch])
   return (
-    <div className={`w-full h-full ${darkTheme === true ? 'bg-[#1C0F0D]' : 'bg-white'} relative ${darkTheme === true ? 'text-white' : 'text-[#1C0F0D]'}`}>
+    <div className={`w-full h-auto ${darkTheme === true ? 'bg-[#1C0F0D]' : 'bg-white'} relative ${darkTheme === true ? 'text-white' : 'text-[#1C0F0D]'}`}>
       <ToggleTheme />
       {/* <Overlay /> */}
     <BrowserRouter>
