@@ -8,7 +8,7 @@ import ReactTypingEffect from "react-typing-effect";
 // import Modal from "../UI/Modal";
 function Alligies() {
     const {alligiesData, dispatch} = useProvider();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     useEffect(() => {
         anime({
             targets: ".recipe-item",
@@ -31,6 +31,7 @@ function Alligies() {
     }
     useEffect(() => {
         const fetchAlligies = async () => {
+            setLoading(true);
             const queries = ["banana", "meat", "egg", "kiwi", "almonds", "milk", "peanut", "whaat", "shrimp", "treenuts", "fish"];
             const appId = "111721bd";
             const appKey = "ceb9b54be96f102f81e1a0d1719aedf1";
@@ -55,6 +56,7 @@ function Alligies() {
                     return null; 
                 }).filter(item => item !== null); 
                 dispatch({type:'alligiesData', payload: data});
+
             } catch (err) {
                 console.error("Error fetching data:", err);
             }
@@ -63,9 +65,9 @@ function Alligies() {
         fetchAlligies();
     }, []);
     return (
-        <div className='h-full xl:h-screen'>
+        <div className='h-auto'>
         <BackButton />
-        <div className={`flex flex-col items-center justify-start md:justify-center w-full h-full px-6 py-12`}>
+        <div className={`flex flex-col items-center justify-start  md:justify-center px-6 py-12`}>
         <svg width="230" height="12" viewBox="0 0 230 12" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect width="230" height="12" rx="6" fill="#D9D9D9"/>
         <rect x="165" width="65" height="12" rx="6" fill="#FD5D69"/>
@@ -89,7 +91,9 @@ function Alligies() {
                 </div>
             ))
         ) : (
-            <p>Loading Alligies...</p>
+            <div className="flex justify-center items-center h-full">
+            <p>Loading Allergies...</p>
+        </div>
         )}
         </div>
         <div className="grid place-items-center mt-10 w-full">

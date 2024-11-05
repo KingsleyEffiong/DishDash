@@ -76,9 +76,9 @@ function FoodPreference() {
     }, []);
 
     return (
-        <div className='h-full xl:h-screen'>
+        <div className='h-auto'>
             <BackButton />
-            <div className={`flex flex-col items-center justify-start md:justify-center w-full h-full px-6 py-12 `}>
+            <div className={`flex flex-col items-center justify-start  md:justify-center px-6 py-12`}>
             <svg width="230" height="12" viewBox="0 0 230 12" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect width="230" height="12" rx="6" fill="#D9D9D9"/>
             <rect x="82.5" width="65" height="12" rx="6" fill="#FD5D69"/>

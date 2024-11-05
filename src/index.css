@@ -14,12 +14,18 @@
     --pink:#FFC6C9;
     --pink-sup-color:#EC888D;
     --red-pink-main:#FD5D69;
+    --brown-text:#32201C;
+}
+.custom-placeholder::placeholder {
+  color: #9ca3af; /* Tailwind's gray-400 */
+  opacity: 1;
 }
 
 body {
     font-family: "Coda", sans-serif;
     color: var(--color-light--2);
     font-weight: 400;
+    background-color: var(--black-beige);
     line-height: 1.6;
   }
   
