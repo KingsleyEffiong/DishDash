@@ -31,7 +31,6 @@ function Alligies() {
     }
     useEffect(() => {
         const fetchAlligies = async () => {
-            setLoading(true);
             const queries = ["banana", "meat", "egg", "kiwi", "almonds", "milk", "peanut", "whaat", "shrimp", "treenuts", "fish"];
             const appId = "111721bd";
             const appKey = "ceb9b54be96f102f81e1a0d1719aedf1";
