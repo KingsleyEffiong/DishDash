@@ -114,8 +114,8 @@ function FoodPreference() {
                     )}
                 </div>
             <div className="flex gap-1">
-                <Button onClick={() => navigate("/alligies")} className="bg-[var(--pink)] w-44 text-[var(--pink-sup-color)] h-auto px-6 py-3 rounded-full">Skip</Button>
-                <Button onClick={() => navigate("/alligies")} className="bg-[var(--red-pink-main)] w-44 text-white h-auto px-6 py-3 rounded-full">Continue</Button>
+                <Button onClick={() => navigate("/alligies")} className="bg-[var(--pink)] w-44 text-[var(--pink-sup-color)] h-auto px-4 py-3 rounded-full">Skip</Button>
+                <Button onClick={() => navigate("/alligies")} className="bg-[var(--red-pink-main)] w-44 text-white h-auto px-4 py-3 rounded-full">Continue</Button>
             </div>
             </div>
         </div>
