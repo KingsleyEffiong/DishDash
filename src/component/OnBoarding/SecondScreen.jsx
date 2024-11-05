@@ -22,7 +22,7 @@ function SecondScreen() {
         </div>
         <div className="relative max-w-md overflow-hidden flex flex-col items-center justify-center rounded-2xl">
             <img 
-                src="public/images/Rectangle 302(1).png" 
+                src="/images/Rectangle 302(1).png" 
                 alt="skill" 
                 className="w-full h-auto"
             />

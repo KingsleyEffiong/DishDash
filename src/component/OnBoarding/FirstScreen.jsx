@@ -3,6 +3,7 @@ import Button from "../../UI/Button";
 import ReactTypingEffect from "react-typing-effect";
 import ToggleTheme from "../../UI/ToggleTheme";
 
+
 function FirstScreen() {
     const navigate = useNavigate();
     return (
@@ -22,7 +23,7 @@ function FirstScreen() {
             </div>
             <div className="relative max-w-md overflow-hidden flex flex-col items-center justify-center rounded-2xl">
                 <img 
-                    src="public/images/Rectangle 302.png" 
+                    src="/images/Rectangle 302.png" 
                     alt="inspiration" 
                     className="w-full h-auto"
                 />
