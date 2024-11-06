@@ -4,8 +4,8 @@ import { FaInstagram, FaFacebook, FaGoogle, FaWhatsapp } from 'react-icons/fa';
 
 function Login() {
     return (
-        <div className='h-screen flex flex-col items-center justify-start md:justify-center px-6 py-12'>
-            <div className={`flex flex-col items-center justify-start md:justify-center px-6 `}>
+        <div className='h-full md:h-screen flex flex-col items-center justify-start md:justify-center px-6 py-12'>
+            <div className={`flex flex-col items-center h-screen justify-start md:justify-center px-6 `}>
                 <h1 className="text-[var(--red-pink-main)]">Login</h1>
                 <form action="">
                     <div className="flex flex-col gap-2 w-[357px] h-auto relative p-5">
