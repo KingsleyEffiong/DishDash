@@ -41,7 +41,7 @@ function Signup() {
             <p className="mt-8">By continuing, you agree to </p>
             <h4 className="font-semibold"> Terms of Use and Privacy Policy.</h4>
             <Button className="bg-[var(--pink-sup-color)] w-44 text-[var(--whitebeige)] h-auto px-6 py-3 rounded-full mt-5">Sign Up</Button>
-            <Link to='' className="mt-2 text-sm">Already have an account?  Log In</Link>
+            <Link to='/login' className="mt-2 text-sm">Already have an account?  Log In</Link>
     </div>
     </div>
     )

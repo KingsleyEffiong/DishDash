@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../UI/Button";
 import { FaInstagram, FaFacebook, FaGoogle, FaWhatsapp } from 'react-icons/fa';
 
 function Login() {
+    const navigate = useNavigate()
     return (
         <div className='h-full md:h-screen flex flex-col items-center justify-start md:justify-center px-6 py-12'>
             <div className={`flex flex-col items-center h-screen justify-start md:justify-center px-6 `}>
@@ -21,7 +22,7 @@ function Login() {
                     </div>
                 </form>
                 <Button className="bg-[var(--pink)] w-44 text-[var(--pink-sup-color)] h-auto px-6 py-3 rounded-full mt-12">Log In</Button>
-                <Button className="bg-[var(--pink)] w-44 text-[var(--pink-sup-color)] h-auto px-6 py-3 rounded-full my-5">Sign Up</Button>
+                <Button className="bg-[var(--pink)] w-44 text-[var(--pink-sup-color)] h-auto px-6 py-3 rounded-full my-5" onClick={() =>navigate('/signup')}>Sign Up</Button>
                 {/* <h2 className="mt-14">Forgot password</h2> */}
                 <h4 className="text-[var(--brown-text)] mt-7">or sign up with</h4>
                 <div className="flex flex-row gap-5 text-2xl mt-4">
@@ -30,7 +31,7 @@ function Login() {
                     <FaFacebook className="cursor-pointer"/>
                     <FaWhatsapp className="cursor-pointer"/>
                 </div>
-                <Link to='' className="mt-4 text-sm">Don’t have an account? Sign Up</Link>
+                <Link to='/signup' className="mt-4 text-sm">Don’t have an account? Sign Up</Link>
         </div>
         </div>
     )
