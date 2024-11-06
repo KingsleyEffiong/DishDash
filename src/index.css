@@ -1,6 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-boxs;
+}
 @font-face {
     font-family: 'Coda';
     src: url('assets/Coda-Regular.ttf') format('truetype'); 
@@ -25,10 +31,6 @@ body, html {
     font-family: "Coda", sans-serif;
     color: var(--color-light--2);
     font-weight: 400;
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    box-sizing: border-boxs;
     line-height: 1.6;
     overflow-x: hidden;
   }

@@ -8,7 +8,7 @@ function Welcome() {
     return (
         <div className={`h-screen flex flex-col items-center justify-start md:justify-center px-6 py-12`}>
             <BackButton />
-                <div className="flex flex-wrap justify-center gap-5 py-14">
+                <div className="flex flex-wrap p-1 gap-3 w-screen h-auto overflow-x-hidden md:overflow-x-auto md:overflow-y-hidden justify-center my-5">
                 <img className="w-24 h-24" src="/images/Frame 460.png" alt="food1" />
                 <img className="w-24 h-24" src="/images/Frame 453.png" alt="food2" />
                 <img className="w-24 h-24" src="/images/Frame 457.png" alt="food3" />
