@@ -6,7 +6,7 @@ import ReactTypingEffect from "react-typing-effect"
 function Welcome() {
     const navigate = useNavigate()
     return (
-        <div className={`w-full h-screen flex flex-col`}>
+        <div className={`h-screen flex flex-col items-center justify-start md:justify-center px-6 py-12`}>
             <BackButton />
                 <div className="flex flex-wrap justify-center gap-5 py-14">
                 <img className="w-24 h-24" src="/images/Frame 460.png" alt="food1" />
