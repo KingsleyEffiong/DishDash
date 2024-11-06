@@ -4,11 +4,11 @@ import { FaInstagram, FaFacebook, FaGoogle, FaWhatsapp } from 'react-icons/fa';
 
 function Login() {
     return (
-        <div className='h-screen xl:h-full'>
-            <div className={`flex flex-col items-center w-full h-full px-6 py-12 `}>
+        <div className='h-screen md:h-auto py-3'>
+            <div className={`flex flex-col items-center justify-start md:justify-center px-6 `}>
                 <h1 className="text-[var(--red-pink-main)]">Login</h1>
                 <form action="">
-                    <div className="flex flex-col gap-2 w-[357px] h-auto p-5">
+                    <div className="flex flex-col gap-2 w-[357px] h-auto relative p-5">
                         <label htmlFor="email">Email</label>
                         <input type="email" name="email" id="email" className="bg-[var(--pink)] w-full h-[41px] text-[var(--black-beige)] rounded-full outline-none placeholder:text-red-400 px-6" placeholder="example@gmail.com"/>
                     </div>

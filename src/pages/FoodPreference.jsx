@@ -76,9 +76,8 @@ function FoodPreference() {
     }, []);
 
     return (
-        <div className='h-auto'>
+        <div className='h-screen flex flex-col items-center justify-start md:justify-center px-6 py-12'>
             <BackButton />
-            <div className={`flex flex-col items-center justify-start  md:justify-center px-6 py-12`}>
             <svg width="230" height="12" viewBox="0 0 230 12" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect width="230" height="12" rx="6" fill="#D9D9D9"/>
             <rect x="82.5" width="65" height="12" rx="6" fill="#FD5D69"/>
@@ -93,7 +92,7 @@ function FoodPreference() {
                 />
                 </h1>
                 <p className="mt-7 mb-4">Please select your cuisines preferences for better recommendations or you can skip it.</p>
-                <div className="flex flex-wrap p-1 gap-3 justify-center">
+                <div className="flex flex-wrap p-1 gap-3 w-screen h-auto overflow-x-hidden md:overflow-x-auto md:overflow-y-hidden justify-center my-5">
                     {recipeData.length > 0 ? (
                         recipeData.map((recipe) => (
                             <div
@@ -118,7 +117,6 @@ function FoodPreference() {
                 <Button onClick={() => navigate("/alligies")} className="bg-[var(--red-pink-main)] w-44 text-white h-auto px-4 py-3 rounded-full">Continue</Button>
             </div>
             </div>
-        </div>
     );
 }
 

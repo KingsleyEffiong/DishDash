@@ -64,9 +64,8 @@ function Alligies() {
         fetchAlligies();
     }, []);
     return (
-        <div className='h-auto'>
+        <div className='h-screen flex flex-col items-center justify-start md:justify-center px-6 py-12'>
         <BackButton />
-        <div className={`flex flex-col items-center justify-start  md:justify-center px-6 py-12`}>
         <svg width="230" height="12" viewBox="0 0 230 12" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect width="230" height="12" rx="6" fill="#D9D9D9"/>
         <rect x="165" width="65" height="12" rx="6" fill="#FD5D69"/>
@@ -81,7 +80,7 @@ function Alligies() {
                 />
                 </h1>
         <p className="mt-7 mb-4">Please select your allergic for a better recommendations or you can skip it.</p>
-        <div className="flex flex-wrap p-1 gap-3 justify-center">
+        <div className="flex flex-wrap p-1 gap-3 w-screen h-auto overflow-x-hidden md:overflow-x-auto md:overflow-y-hidden justify-center my-5">
         {alligiesData.length > 0 ? (
             alligiesData.map((alligy) => (
                 <div key={alligy.uri} className="recipe-item cursor-pointer" onClick={() => selectedAllegie(alligy.label)}>
@@ -97,7 +96,6 @@ function Alligies() {
         </div>
         <div className="grid place-items-center mt-10 w-full">
         <Button onClick={() => {navigate('/login')}} className="bg-[var(--red-pink-main)] w-44 text-white h-auto px-6 py-3 rounded-full">Continue</Button>
-        </div>
         </div>
         {/* <Modal>
             <h1>Sign up succesful!</h1>
