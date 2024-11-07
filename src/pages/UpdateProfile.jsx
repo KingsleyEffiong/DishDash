@@ -30,7 +30,7 @@ function UpdateProfile() {
                 </div>
                 <div className="flex flex-col gap-2 w-[357px] h-auto p-5">
                     <label htmlFor="date of birth">Date of birth</label>
-                    <input type="date" name="Date of birth" id="dateOfBirth" className="bg-[var(--pink)] w-full h-[41px] text-[var(--black-beige)] rounded-full outline-none custom-placeholder placeholder:text-red-400 px-6" placeholder="DD/MM/YY"/>
+                    <input type="text" name="Date of birth" id="dateOfBirth" className="bg-[var(--pink)] w-full h-[41px] text-[var(--black-beige)] rounded-full outline-none custom-placeholder placeholder:text-red-400 px-6" placeholder=""/>
                 </div>
             </form>
             <p className="mt-8">By continuing, you agree to </p>
