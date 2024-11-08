@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom"
 import Button from "../UI/Button"
 import { useState } from "react"
-import {db} from "../Firebase"
-// import {} from "firebase/auth"
-import {setDoc, doc} from "firebase/firestore"
+import {auth, db} from "../Firebase"
+import {createUserWithEmailAndPassword, } from "firebase/auth"
+import {doc, setDoc} from "firebase/firestore"
 import Modal from "../UI/Modal"
 import Overlay from "../UI/Overlay"
 import { useProvider } from "../component/Provider"
@@ -16,50 +16,52 @@ function Signup() {
     const [cpassword, setCPassword] = useState('');
     const {showPopup, dispatch, error} = useProvider();
 
-    async function handleSubmit() {
-        const generateUserId = () => {
-            let userId = localStorage.getItem('userId');
-            if (!userId) {
-                userId = `user${Date.now()}_${Math.random().toString(32).substring(2, 9)}`;
-                localStorage.setItem('userId', userId);
+
+
+         // const generateUserId = () => {
+        //     let userId = localStorage.getItem('userId');
+        //     if (!userId) {
+        //         userId = `user${Date.now()}_${Math.random().toString(32).substring(2, 9)}`;
+        //         localStorage.setItem('userId', userId);
+        //     }
+        //     return userId;
+        // };
+        async function handleSubmit() {
+            try {
+                // Validate required input fields
+                if (!name.trim() || !email.trim() || !phonenumber.trim() || !dob.trim() || !password.trim() || !cpassword.trim()) {
+                    throw new Error('All fields are required');
+                }
+                if (password !== cpassword) {
+                    throw new Error('Passwords do not match');
+                }
+        
+                console.log('Loading.......');
+        
+                // Attempt to create the user with email and password
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+                await setDoc(doc(db, "users", user.uid), {
+                    name,
+                    email,
+                    phonenumber,
+                    dob,
+                    createdAt: new Date().toISOString()
+                });console.log('User created:', user);
+        
+                // Dispatch action to show success popup
+                dispatch({ type: 'showPopup', payload: true });
+                console.log('User data saved successfully');
+            } catch (err) {
+                console.error('Error:', err.message);
+        
+                // Dispatch error message
+                dispatch({ type: 'error', error: err.message });
+            } finally {
+                console.log('Finished');
             }
-            return userId;
-        };
-    
-        try {
-            // Validate required input fields
-            if (!name.trim() || !email.trim() || !phonenumber.trim() || !dob.trim() || !password.trim() || !cpassword.trim()) {
-                throw new Error('All fields are required');
-            }
-            if (password !== cpassword) {
-                throw new Error('Passwords do not match');
-            }
-    
-            // Generate user ID
-            let userId = generateUserId();
-            const docRef = doc(db, "user", userId);
-    
-            console.log('Loading.......');
-    
-            // Save the user document in Firestore
-            await setDoc(docRef, {
-                name,
-                email,
-                phonenumber,
-                dob,
-                password,
-            });
-    
-            // Dispatch action to show success popup
-            dispatch({ type: 'showPopup', payload: true });
-            console.log('User data saved successfully');
-        } catch (err) {
-            console.error('Error:', err.message);
-            dispatch({ type: 'error', error: err.message});
-        } finally {
-            console.log('Finished');
         }
-    }
+        
     
 
     return (

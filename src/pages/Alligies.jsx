@@ -97,15 +97,6 @@ function Alligies() {
         <div className="grid place-items-center mt-10 w-full">
         <Button onClick={() => {navigate('/login')}} className="bg-[var(--red-pink-main)] w-44 text-white h-auto px-6 py-3 rounded-full">Continue</Button>
         </div>
-        {/* <Modal>
-            <h1>Sign up succesful!</h1>
-            <svg width="83" height="83" viewBox="0 0 83 83" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="41.5" cy="41.0976" r="41.0976" fill="#FFC6C9"/>
-            <path d="M41.9019 34.0857C46.0969 34.0857 49.4977 30.6849 49.4977 26.4899C49.4977 22.2949 46.0969 18.8942 41.9019 18.8942C37.7069 18.8942 34.3062 22.2949 34.3062 26.4899C34.3062 30.6849 37.7069 34.0857 41.9019 34.0857Z" stroke="#FD5D69" strokeWidth="3.37588" strokeLinecap="round" strokeLinejoin="round"/>
-            <path d="M55.8847 56.2719C52.2388 64.4617 41.8547 63.7867 41.8547 63.7867C41.8547 63.7867 31.4638 64.4347 27.8246 56.2719C27.1203 54.7016 26.7561 53 26.7561 51.2789C26.7561 49.5579 27.1203 47.8565 27.8246 46.2862C31.4638 38.0963 41.8547 38.7714 41.8547 38.7714C41.8547 38.7714 52.2388 38.1233 55.8847 46.2862C56.5891 47.8565 56.9532 49.5579 56.9532 51.2789C56.9532 53 56.5891 54.7016 55.8847 56.2719Z" stroke="#FD5D69" strokeWidth="3.37588" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            <p className="text-center">Lorem ipsum dolor sit amet pretium cras id dui pellentesque ornare. Quisque malesuada.</p>
-        </Modal> */}
     </div>
     )
 }
