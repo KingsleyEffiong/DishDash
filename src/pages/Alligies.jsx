@@ -83,7 +83,7 @@ function Alligies() {
         <div className="flex flex-wrap p-1 gap-3 w-screen h-auto overflow-x-hidden md:overflow-x-auto md:overflow-y-hidden justify-center my-5">
         {alligiesData.length > 0 ? (
             alligiesData.map((alligy) => (
-                <div key={alligy.uri} className="recipe-item cursor-pointer" onClick={() => selectedAllegie(alligy.label)}>
+                <div key={alligy.uri} className="recipe-item cursor-pointer" onClick={() => selectedAllegie(alligy.query)}>
                     <img className="w-24 h-24 rounded-xl" src={alligy.image} alt={alligy.label} />
                     <h3 className="text-center font-semibold">{alligy.query}</h3>
                 </div>

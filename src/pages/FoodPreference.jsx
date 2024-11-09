@@ -98,7 +98,7 @@ function FoodPreference() {
                             <div
                                 key={recipe.uri}
                                 className="recipe-item cursor-pointer"
-                                onClick={() => selectedRecipe(recipe.label)}
+                                onClick={() => selectedRecipe(recipe.query)}
                             >
                                 <img
                                     className="w-24 h-24 rounded-xl"

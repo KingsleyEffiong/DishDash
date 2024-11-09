@@ -13,6 +13,8 @@ import Login from "./pages/Login";
 import ToggleTheme from "./UI/ToggleTheme";
 import Signup from "./pages/Signup";
 import UpdateProfile from "./pages/UpdateProfile";
+import Homepage from "./component/Dashboard/Homepage";
+import Dashbaord from "./pages/Dashbaord";
 // import Overlay from "./UI/Overlay";
 
 function App() {
@@ -37,6 +39,9 @@ const {launchScreen, dispatch, darkTheme} = useProvider();
       <Route path="getinspired" element={<FirstScreen />}/>
       <Route path="increasedskill" element={<SecondScreen />}/>
       <Route path="welcome" element={<Welcome />}/>
+      </Route>
+      <Route path="/dashboard" element={<Dashbaord />}>
+        <Route path="homepage" index element={<Homepage />}/>
       </Route>
       <Route path="/cookinglevel" element={<CookingLevel />}/>
       <Route path="/foodpreference" element={<FoodPreference />}/>
