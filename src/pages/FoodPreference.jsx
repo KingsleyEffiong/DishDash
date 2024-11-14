@@ -38,42 +38,41 @@ function FoodPreference() {
     useEffect(() => {
         const fetchRecipes = async () => {
             const queries = [
-                "salad", "soup", "egg", "seafood", "chicken", "meat", "burger", "pizza", 
-                "sushi", "rice", "dessert", "bread"
+                "Salad", "Soup", "Egg", "Seafood", "Chicken", "Meat", "Burger", "Pizza", 
+                "Sushi", "Rice", "Dessert", "Bread"
             ];
-            const appId = "111721bd";
-            const appKey = "ceb9b54be96f102f81e1a0d1719aedf1";
-            const baseUrl = `https://api.edamam.com/search`;
-
+            const baseUrl = `https://www.themealdb.com/api/json/v1/1/search.php`;
+    
             try {
                 const responses = await Promise.all(
                     queries.map(query =>
-                        fetch(`${baseUrl}?q=${query}&app_id=${appId}&app_key=${appKey}`)
+                        fetch(`${baseUrl}?s=${query}`)
                             .then(response => response.json())
                     )
                 );
-                console.log(responses)
-
+    
                 const data = responses.map((response, index) => {
-                    if (response.hits && response.hits.length > 0) {
+                    if (response.meals && response.meals.length > 0) {
                         return {
-                            label: response.hits[0].recipe.label,
-                            image: response.hits[0].recipe.image,
-                            uri: response.hits[0].recipe.uri,
+                            label: response.meals[0].strMeal,
+                            image: response.meals[0].strMealThumb,
+                            id: response.meals[0].idMeal,
                             query: queries[index]
                         };
                     }
                     return null;
                 }).filter(item => item !== null);
-                console.log(data)
+    
+                console.log(data);
                 dispatch({type:'recipeData', payload: data});
             } catch (err) {
                 console.error("Error fetching data:", err);
             }
         };
-        
+    
         fetchRecipes();
     }, []);
+    
 
     return (
         <div className='h-screen flex flex-col items-center justify-start md:justify-center px-6 py-12'>
@@ -96,7 +95,7 @@ function FoodPreference() {
                     {recipeData.length > 0 ? (
                         recipeData.map((recipe) => (
                             <div
-                                key={recipe.uri}
+                                key={recipe.id}
                                 className="recipe-item cursor-pointer"
                                 onClick={() => selectedRecipe(recipe.query)}
                             >

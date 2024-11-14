@@ -1,3 +1,5 @@
+import BottomNav from "../BottomNav"
+import SearchBar from "../SearchBar"
 import Chefs from "./Chefs"
 import Mealtime from "./Mealtime"
 import TrendingRecipe from "./TrendingRecipe"
@@ -5,7 +7,7 @@ import UserRecipe from "./UserRecipe"
 
 function Homepage() {
     return (
-        <div className="w-full h-screen p-4 flex flex-col items-center">
+        <div className="w-full h-full p-4 flex flex-col items-center">
               <nav className="w-full h-[55px] flex flex-row justify-around items-start my-10">
                 <div className="">
                     <h1>Hi! Dianne</h1>
@@ -28,6 +30,8 @@ function Homepage() {
               <TrendingRecipe />
               <UserRecipe />
               <Chefs />
+              <BottomNav />
+              <SearchBar />
         </div>
     )
 }

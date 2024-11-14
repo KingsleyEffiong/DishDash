@@ -32,28 +32,27 @@ function Alligies() {
     useEffect(() => {
         const fetchAlligies = async () => {
             const queries = ["banana", "meat", "egg", "kiwi", "almonds", "milk", "peanut", "whaat", "shrimp", "treenuts", "fish"];
-            const appId = "111721bd";
-            const appKey = "ceb9b54be96f102f81e1a0d1719aedf1";
-            const baseUrl = `https://api.edamam.com/search`;
-
+            const baseUrl = `https://www.themealdb.com/api/json/v1/1/search.php`;
+    
             try {
                 const responses = await Promise.all(
                     queries.map(query =>
-                        fetch(`${baseUrl}?q=${query}&app_id=${appId}&app_key=${appKey}`)
+                        fetch(`${baseUrl}?s=${query}`)
                             .then(response => response.json())
                     )
                 );
+    
                 const data = responses.map((response, index) => {
-                    if (response.hits && response.hits.length > 0) {
+                    if (response.meals && response.meals.length > 0) {
                         return {
-                            label: response.hits[0].recipe.label.slice(),
-                            image: response.hits[0].recipe.image,
-                            uri: response.hits[0].recipe.uri,
+                            label: response.meals[0].strMeal,
+                            image: response.meals[0].strMealThumb,
+                            id: response.meals[0].idMeal,
                             query: queries[index]
                         };
                     }
-                    return null; 
-                }).filter(item => item !== null); 
+                    return null;
+                }).filter(item => item !== null);
                 dispatch({type:'alligiesData', payload: data});
 
             } catch (err) {

@@ -6,7 +6,7 @@ Button.propTypes = {
   };
 
 
-function Button({children, className ="", onClick}) {
+function Button({children, className ="", onClick,}) {
     return (
         <button className={className} onClick={onClick}>
             {children}
