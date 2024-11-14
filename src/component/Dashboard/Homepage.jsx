@@ -31,7 +31,7 @@ function Homepage() {
               <UserRecipe />
               <Chefs />
               <BottomNav />
-              <SearchBar />
+              {/* <SearchBar /> */}
         </div>
     )
 }
