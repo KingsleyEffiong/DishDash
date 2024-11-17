@@ -9,8 +9,11 @@ const initialState = {
     launchScreen : true,
     activeCookingLevel:null,
     darkTheme:false,
+    updateRecipe: false,
+    authenticate:false,
     recipeData: [],
-    searchRecipe: 'egg',
+    showSearch: false,
+    searchRecipe: '',
     showPopup:false,
     error:null,
     alligiesData: [],
@@ -26,6 +29,16 @@ function reducer(state, action){
                 ...state,
                 launchScreen: action.payload
             }
+        case 'authenticate' :
+            return{
+                ...state,
+                authenticate: action.payload
+            }
+        case 'updateRecipe' :
+            return{
+                ...state,
+                updateRecipe: action.payload
+            }
         case 'activeCookingLevel' :
             return{
                 ...state,
@@ -40,6 +53,11 @@ function reducer(state, action){
             return{
                 ...state,
                 searchRecipe: action.payload
+            }
+        case 'showSearch' :
+            return{
+                ...state,
+                showSearch: action.payload
             }
         case 'alligiesData' :
             return{
@@ -65,12 +83,15 @@ function reducer(state, action){
             return state; 
     }
 }
-    const [{launchScreen, activeCookingLevel, darkTheme, recipeData, alligiesData, showPopup, error, searchRecipe}, dispatch] = useReducer(reducer, initialState)
+    const [{launchScreen, activeCookingLevel, darkTheme, recipeData, alligiesData, showPopup, error, searchRecipe, showSearch,authenticate, updateRecipe}, dispatch] = useReducer(reducer, initialState)
     return (
         <AppProvider.Provider  value={{
             launchScreen,
+            authenticate,
             activeCookingLevel,
+            showSearch,
             darkTheme,
+            updateRecipe,
             recipeData,
             alligiesData,
             searchRecipe,

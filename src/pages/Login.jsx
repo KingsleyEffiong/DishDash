@@ -29,7 +29,13 @@ function Login() {
             // Dispatch action to show success popup
             // dispatch({ type: 'showPopup', payload: true });
             alert('User successfully login');
-            navigate('/dashboard/homepage')
+            localStorage.setItem('userId', user.uid);
+            dispatch({type:"launchScreen", payload:true})
+            const timer = setTimeout(() =>{
+                dispatch({type:"launchScreen", payload:false})
+              },5000)
+              navigate('/dashboard/homepage')
+              return () => clearTimeout(timer)
         } catch (err) {
             console.error('Error:', err.message);
     
@@ -40,16 +46,21 @@ function Login() {
         }
     }
 
-    const goggleProvider = new GoogleAuthProvider();
-
+    
     async function signinWithGoogle() {
+        const goggleProvider = new GoogleAuthProvider();
+    
         try {
             const result = await signInWithPopup(auth, goggleProvider);
-            // Successfully signed in
             const user = result.user;
             console.log("User signed in: ", user);
-            navigate('/dashboard/homepage')
-            // You can now use the user data or save it to your database if needed
+            localStorage.setItem("userId", user.uid);
+            dispatch({ type: "authenticate", payload: true });
+            dispatch({ type: "launchScreen", payload: true });
+            setTimeout(() => {
+                dispatch({ type: "launchScreen", payload: false });
+            }, 5000);
+            navigate("/dashboard/homepage");
         } catch (error) {
             console.error("Error during sign-in: ", error);
         }
@@ -62,6 +73,7 @@ function Login() {
             // Successfully signed in
             const user = result.user;
             console.log("User signed in: ", user);
+            localStorage.setItem('userId', user.uid);
             navigate('/dashboard/homepage')
             // You can now use the user data or save it to your database if needed
         } catch (error) {

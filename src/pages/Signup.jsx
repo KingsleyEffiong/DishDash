@@ -51,6 +51,9 @@ function Signup() {
                 dispatch({ type: 'showPopup', payload: true });
                 console.log('User data saved successfully');
                 localStorage.setItem('userId', user.uid);
+                localStorage.removeItem('alligy');
+                localStorage.removeItem('recipes');
+                localStorage.removeItem('activeCookingLevel');
                 navigate('/login')
             } catch (err) {
                 console.error('Error:', err.message);

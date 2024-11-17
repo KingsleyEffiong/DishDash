@@ -20,7 +20,7 @@ function InstructionModal({children}) {
         });
     },[]);
     return (
-        <div className={`w-full h-auto shadow-md py-6 px-4 overflow-auto ${darkTheme === true ? 'bg-white' : 'bg-[#1C0F0D]'} ${darkTheme === true ? 'text-[#1C0F0D]' : 'text-white'} fixed z-30 top-0 left-0 instruction-container`}>
+        <div className={`w-full h-3/4 shadow-md py-6 px-4 overflow-auto ${darkTheme === true ? 'bg-white' : 'bg-[#1C0F0D]'} ${darkTheme === true ? 'text-[#1C0F0D]' : 'text-white'} fixed z-30 top-0 left-0 instruction-container`}>
             {children}
         </div>
     )
