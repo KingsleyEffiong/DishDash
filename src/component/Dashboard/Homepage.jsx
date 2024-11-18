@@ -63,7 +63,7 @@ function Homepage() {
             : 0;
     
         const now = Date.now();
-        const sevenHours = 7 * 60 * 60 * 1000; // 7 hours in milliseconds
+        const sevenHours = 3000; // 7 hours in milliseconds
 
     
         if (!lastNotification || now - lastNotificationTime >= sevenHours) {
