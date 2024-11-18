@@ -23,7 +23,7 @@ function Notification() {
     >
       <BackButton />
       <Button
-  className="bg-red-600 absolute right-2 top-3 py-2 px-3 rounded-full"
+  className="bg-[var(--red-pink-main)] absolute right-2 top-3 py-2 px-3 rounded-full"
   onClick={() => {
     localStorage.removeItem("notifications"); // Clear localStorage
     dispatch({ type: "notifications", payload: [] }); // Reset state
@@ -37,21 +37,27 @@ function Notification() {
             darkTheme === true
               ? "text-[var(--whitebeige)]"
               : "text-[var(--black-beige)]"
-          }`}
+          } my-8`}
         >
           Today Notification
         </h2>
+
         <div className="flex flex-col gap-5">
           {savedNotifications.length === 0 ? (
             <h1   className={`${
                 darkTheme === true
                   ? "text-[var(--whitebeige)]"
                   : "text-[var(--black-beige)]"
-              }`}>No notifications</h1>
+              }` }>No notifications</h1>
           ) : (
             savedNotifications.map((notification) => (
+                <div className=""  key={notification.id}>
+                <p  className={`${
+                darkTheme === true
+                  ? "text-[var(--whitebeige)]"
+                  : "text-[var(--black-beige)]"
+              } text-xs`}>Latest Recipes</p>
               <div
-                key={notification.id}
                 className="bg-[var(--pink)] w-full h-[75px] rounded-xl flex flex-row items-center gap-4"
               >
                 <img
@@ -64,6 +70,7 @@ function Notification() {
                   <p>New Recipe!</p>
                 </div>
               </div>
+                </div>
             ))
           )}
         </div>
