@@ -40,7 +40,7 @@ function App() {
   useEffect(() => {
     const timer = setTimeout(() => {
       dispatch({ type: "launchScreen", payload: false });
-    }, 3000);
+    }, 6000);
     return () => clearTimeout(timer);
   }, [dispatch]);
 
