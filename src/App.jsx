@@ -38,7 +38,6 @@ function App() {
         dispatch({ type: "authenticate", payload: true });
       } else {
         dispatch({ type: "authenticate", payload: false });
-        dispatch({ type: 'authenticateUserId', payload: null });
       }
     });
     return () => unsubscribe();
