@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom"
 import Button from "../UI/Button"
 import { useState } from "react"
 import {auth, db} from "../Firebase"
-import {createUserWithEmailAndPassword} from "firebase/auth"
+import {createUserWithEmailAndPassword, updateProfile } from "firebase/auth"
 import {doc, setDoc} from "firebase/firestore"
 import Modal from "../UI/Modal"
 import Overlay from "../UI/Overlay"
@@ -20,50 +20,64 @@ function Signup() {
     async function handleSubmit() {
         const allegy = JSON.parse(localStorage.getItem('alligy'));
         const recipes = JSON.parse(localStorage.getItem('recipes'));
-        const cookingLevel = localStorage.getItem('activeCookingLevel')
-            
-            try {
-                // Validate required input fields
-                if (!name.trim() || !email.trim() || !phonenumber.trim() || !dob.trim() || !password.trim() || !cpassword.trim()) {
-                    throw new Error('All fields are required');
-                }
-                if (password !== cpassword) {
-                    throw new Error('Passwords do not match');
-                }
+        const cookingLevel = localStorage.getItem('activeCookingLevel');
         
-                console.log('Loading.......');
-        
-                // Attempt to create the user with email and password
-                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                const user = userCredential.user;
-                await setDoc(doc(db, "users", user.uid), {
-                    name,
-                    email,
-                    phonenumber,
-                    dob,
-                    recipes,
-                    allegy,
-                    cookingLevel,
-                    createdAt: new Date().toISOString()
-                });console.log('User created:', user);
-        
-                // Dispatch action to show success popup
-                dispatch({ type: 'showPopup', payload: true });
-                console.log('User data saved successfully');
-                localStorage.setItem('userId', user.uid);
-                localStorage.removeItem('alligy');
-                localStorage.removeItem('recipes');
-                localStorage.removeItem('activeCookingLevel');
-                navigate('/login')
-            } catch (err) {
-                console.error('Error:', err.message);
-        
-                // Dispatch error message
-                dispatch({ type: 'error', error: err.message });
-            } finally {
-                console.log('Finished');
+        try {
+            // Validate required input fields
+            if (!name.trim() || !email.trim() || !phonenumber.trim() || !dob.trim() || !password.trim() || !cpassword.trim()) {
+                throw new Error('All fields are required');
             }
+            if (password !== cpassword) {
+                throw new Error('Passwords do not match');
+            }
+    
+            console.log('Loading.......');
+    
+            // Attempt to create the user with email and password
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+    
+            // Update the user's display name in Firebase
+            await updateProfile(user, { displayName: name });
+            console.log('Display name updated to:', name);
+    
+            // Optionally store the user in localStorage
+            localStorage.setItem('user', name);
+    
+            // Save additional user data to Firestore
+            await setDoc(doc(db, "users", user.uid), {
+                name,
+                email,
+                phonenumber,
+                dob,
+                recipes,
+                allegy,
+                cookingLevel,
+                createdAt: new Date().toISOString()
+            });
+    
+            console.log('User created and data saved successfully:', user);
+    
+            // Dispatch action to show success popup
+            dispatch({ type: 'showPopup', payload: true });
+    
+            // Store user ID and clean up localStorage
+            localStorage.setItem('userId', user.uid);
+            localStorage.removeItem('alligy');
+            localStorage.removeItem('recipes');
+            localStorage.removeItem('activeCookingLevel');
+    
+            // Navigate to login
+            navigate('/login');
+        } catch (err) {
+            console.error('Error:', err.message);
+    
+            // Dispatch error message
+            dispatch({ type: 'error', error: err.message });
+        } finally {
+            console.log('Finished');
         }
+    }
         
     
 

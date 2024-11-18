@@ -16,26 +16,20 @@ import UpdateProfile from "./pages/UpdateProfile";
 import Homepage from "./component/Dashboard/Homepage";
 import Dashbaord from "./pages/Dashbaord";
 import { auth } from './Firebase';
-import { onAuthStateChanged, signOut } from "firebase/auth";
-import Button from "./UI/Button";
+import { onAuthStateChanged } from "firebase/auth";
+import Notification from "./UI/Notification";
+
 
 function App() {
   const { launchScreen, dispatch, darkTheme, authenticate } = useProvider();
   const userId = localStorage.getItem('userId');
 
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-      dispatch({ type: "authenticate", payload: false });
-    } catch (error) {
-      console.error("Error logging out: ", error);
-    }
-  };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         dispatch({ type: "authenticate", payload: true });
+        dispatch({type:'userName', payload:user.displayName})
       } else {
         dispatch({ type: "authenticate", payload: false });
       }
@@ -57,7 +51,6 @@ function App() {
       } relative`}
     >
       <ToggleTheme />
-      <Button onClick={handleLogout} className="bg-red-600">Logout</Button>
       <BrowserRouter>
         {launchScreen ? (
           <Launch />
@@ -95,6 +88,7 @@ function App() {
                 <Route path="/dashboard" element={<Dashbaord />}>
                   <Route path="homepage" index element={<Homepage />} />
                 </Route>
+                <Route path="/notifications" element={<Notification />} />
                 <Route path="/update-profile" element={<UpdateProfile />} />
                 <Route path="*" element={<Navigate to="/dashboard/homepage" replace />} />
               </>

@@ -21,6 +21,7 @@ function UserRecipe() {
                 const userSnapshot = await getDoc(userRef);
                 if (userSnapshot.exists()) {
                     const userdata = userSnapshot.data();
+                    console.log(userdata)
                     const recipe = userdata.recipes;
 
 

@@ -25,11 +25,9 @@ function Login() {
             // Attempt to create the user with email and password
             const userCredential = await signInWithEmailAndPassword (auth, email, password);
             const user = userCredential.user;
-            console.log(user)
-            // Dispatch action to show success popup
-            // dispatch({ type: 'showPopup', payload: true });
             alert('User successfully login');
             localStorage.setItem('userId', user.uid);
+            localStorage.setItem('user', user.displayName)
             dispatch({type:"launchScreen", payload:true})
             const timer = setTimeout(() =>{
                 dispatch({type:"launchScreen", payload:false})
@@ -55,6 +53,9 @@ function Login() {
             const user = result.user;
             console.log("User signed in: ", user);
             localStorage.setItem("userId", user.uid);
+            localStorage.removeItem("user")
+            localStorage.removeItem("alliegy")
+            localStorage.removeItem("recipe")
             dispatch({ type: "authenticate", payload: true });
             dispatch({ type: "launchScreen", payload: true });
             setTimeout(() => {
@@ -73,6 +74,9 @@ function Login() {
             // Successfully signed in
             const user = result.user;
             console.log("User signed in: ", user);
+            localStorage.removeItem("user")
+            localStorage.removeItem("alliegy")
+            localStorage.removeItem("recipe")
             localStorage.setItem('userId', user.uid);
             navigate('/dashboard/homepage')
             // You can now use the user data or save it to your database if needed
