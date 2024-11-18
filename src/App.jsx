@@ -36,7 +36,6 @@ function App() {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         dispatch({ type: "authenticate", payload: true });
-        dispatch({ type: 'authenticateUserId', payload: user.uid });
       } else {
         dispatch({ type: "authenticate", payload: false });
         dispatch({ type: 'authenticateUserId', payload: null });
