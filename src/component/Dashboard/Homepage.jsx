@@ -7,9 +7,10 @@ import UserRecipe from "./UserRecipe"
 import Overlay from "../../UI/Overlay"
 import { useProvider } from "../Provider"
 import { useNavigate } from "react-router-dom"
+import { useEffect } from "react"
 
 function Homepage() {
-    const {showSearch, dispatch, userName, unReadNotification} = useProvider();
+    const {showSearch, dispatch, userName, notifications} = useProvider();
     const signUpUserName  = localStorage.getItem('user');
     const navigate = useNavigate();
 
@@ -17,6 +18,64 @@ function Homepage() {
         navigate('/notifications')
         dispatch({type:'unReadNotification', payload:0})
     }
+
+    const fetchRandomMeal = async () => {
+        try {
+            const response = await fetch("https://www.themealdb.com/api/json/v1/1/random.php");
+            const data = await response.json();
+    
+            if (data?.meals?.length > 0) {
+                const randomMeal = data.meals[0];
+                const newNotification = {
+                    id: randomMeal.idMeal,
+                    title: randomMeal.strMeal,
+                    thumbnail: randomMeal.strMealThumb,
+                    timestamp: new Date().toISOString(),
+                };
+    
+                // Fetch existing notifications from localStorage
+                const storedNotifications = JSON.parse(localStorage.getItem("notifications")) || [];
+                const updatedNotifications = [
+                    newNotification,
+                    ...storedNotifications.filter((notif) => notif.id !== newNotification.id),
+                ];
+    
+                // Save updated notifications to localStorage
+                localStorage.setItem("notifications", JSON.stringify(updatedNotifications));
+    
+                // Update state with new notifications
+                dispatch({
+                    type: "notifications",
+                    payload: updatedNotifications,
+                });
+            }
+        } catch (error) {
+            console.error("Error fetching random meal:", error);
+        }
+    };
+    
+    
+      
+    useEffect(() => {
+        const lastNotification = Array.isArray(notifications) ? notifications[0] : null;
+        const lastNotificationTime = lastNotification
+            ? new Date(lastNotification.timestamp).getTime()
+            : 0;
+    
+        const now = Date.now();
+        const sevenHours = 7 * 60 * 60 * 1000; // 7 hours in milliseconds
+
+    
+        if (!lastNotification || now - lastNotificationTime >= sevenHours) {
+            fetchRandomMeal();
+        }
+    
+        const timer = setInterval(fetchRandomMeal, sevenHours);
+        return () => clearInterval(timer); // Cleanup on unmount
+    }, [notifications]);
+    
+      
+
     return (
         <div className="w-full h-full p-4 flex flex-col items-center">
               <nav className="w-full h-[55px] flex flex-row justify-around items-start my-10">
@@ -27,7 +86,7 @@ function Homepage() {
                 <div className="flex flex-row gap-3">
                     <div className="relative">
                     <div className="w-3 h-3 p-3 rounded-full bg-red-700 text-white absolute flex justify-center items-center -top-5 -right-3">
-                    <p>{unReadNotification}</p>
+                    <p>{notifications.length}</p>
                     </div>
                 <svg width="28" height="28" style={{cursor:'pointer'}} onClick={handShowNotification} viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect width="28" height="28" rx="13.8409" fill="#FFC6C9"/>

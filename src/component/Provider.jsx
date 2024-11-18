@@ -9,6 +9,7 @@ const initialState = {
     launchScreen : true,
     activeCookingLevel:null,
     darkTheme:false,
+    notifications: localStorage.getItem('notifications') || [],
     updateRecipe: false,
     authenticate:false,
     userName:'',
@@ -16,8 +17,7 @@ const initialState = {
     showSearch: false,
     searchRecipe: '',
     showPopup:false,
-    unReadNotification: 0,
-    error:null,
+    error:null, 
     alligiesData: [],
 }
 
@@ -36,10 +36,10 @@ function reducer(state, action){
                 ...state,
                 authenticate: action.payload
             }
-        case 'unReadNotification' :
+        case 'notifications' :
             return{
                 ...state,
-                unReadNotification: action.payload
+                notifications: action.payload
             }
         case 'updateRecipe' :
             return{
@@ -95,7 +95,7 @@ function reducer(state, action){
             return state; 
     }
 }
-    const [{launchScreen, activeCookingLevel, darkTheme, recipeData, alligiesData, showPopup, error, searchRecipe, showSearch,authenticate, updateRecipe, userName, unReadNotification}, dispatch] = useReducer(reducer, initialState)
+    const [{launchScreen, activeCookingLevel, darkTheme, recipeData, alligiesData, showPopup, error, searchRecipe, showSearch,authenticate, updateRecipe, userName, notifications}, dispatch] = useReducer(reducer, initialState)
     return (
         <AppProvider.Provider  value={{
             launchScreen,
@@ -104,7 +104,7 @@ function reducer(state, action){
             showSearch,
             darkTheme,
             userName,
-            unReadNotification,
+            notifications,
             updateRecipe,
             recipeData,
             alligiesData,
