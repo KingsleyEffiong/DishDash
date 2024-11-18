@@ -20,15 +20,24 @@ function Alligies() {
         });
     }, [alligiesData]);
     const [selectedAllegies, setSelectedAllegies] = useState(() =>{
-        return JSON.parse(localStorage.getItem('alligy')) || [];
+        return JSON.parse(localStorage.getItem('alliegy')) || [];
     });
-    function selectedAllegie(alligy) {
-    const newAlligy = selectedAllegies.includes(alligy)
-    ? selectedAllegies 
-    : [...selectedAllegies, alligy]; 
-        setSelectedAllegies(newAlligy);
-        localStorage.setItem('alligy', JSON.stringify(newAlligy));
-    }
+
+        // Check if a recipe is selected
+        const isRecipeSelected = (query) => selectedAllegies.includes(query);
+
+        // Handle recipe selection/deselection
+        const allegySelected = (alliegy) => {
+            let updatedAlliegy;
+            if (isRecipeSelected(alliegy)) {
+                updatedAlliegy = selectedAllegies.filter((item) => item !== alliegy); // Deselect
+            } else {
+                updatedAlliegy = [...selectedAllegies, alliegy]; // Select
+            }
+    
+            setSelectedAllegies(updatedAlliegy);
+            localStorage.setItem("alliegy", JSON.stringify(updatedAlliegy));
+        };
     useEffect(() => {
         const fetchAlligies = async () => {
             const queries = ["banana", "meat", "egg", "kiwi", "almonds", "milk", "peanut", "whaat", "shrimp", "treenuts", "fish"];
@@ -82,7 +91,9 @@ function Alligies() {
         <div className="flex flex-wrap p-1 gap-3 w-screen h-auto overflow-x-hidden md:overflow-x-auto md:overflow-y-hidden justify-center my-5">
         {alligiesData.length > 0 ? (
             alligiesData.map((alligy) => (
-                <div key={alligy.uri} className="recipe-item cursor-pointer" onClick={() => selectedAllegie(alligy.query)}>
+                <div key={alligy.uri}    className={`recipe-item cursor-pointer px-3 py-4 ${
+                    isRecipeSelected(alligy.query) ? "bg-[var(--red-pink-main)] rounded-xl" : "" }`}
+                onClick={() => allegySelected(alligy.query)}>
                     <img className="w-24 h-24 rounded-xl" src={alligy.image} alt={alligy.label} />
                     <h3 className="text-center font-semibold">{alligy.query}</h3>
                 </div>

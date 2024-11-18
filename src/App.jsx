@@ -15,94 +15,97 @@ import Signup from "./pages/Signup";
 import UpdateProfile from "./pages/UpdateProfile";
 import Homepage from "./component/Dashboard/Homepage";
 import Dashbaord from "./pages/Dashbaord";
-import {auth} from './Firebase'
-import {onAuthStateChanged, signOut } from "firebase/auth"
+import { auth } from './Firebase';
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import Button from "./UI/Button";
-// import Overlay from "./UI/Overlay";
 
 function App() {
-const {launchScreen, dispatch, darkTheme, authenticate} = useProvider();
+  const { launchScreen, dispatch, darkTheme, authenticate } = useProvider();
+  const userId = localStorage.getItem('userId');
 
-const handleLogout = async () => {
-  try {
+  const handleLogout = async () => {
+    try {
       await signOut(auth);
-      // Clear any additional user-related data (like localStorage or cookies)
-      localStorage.removeItem("userId");
-
-      // Update authentication state in the app
       dispatch({ type: "authenticate", payload: false });
-
-      // Navigate to the login page or home page
-      navigate("/login");
-  } catch (error) {
+    } catch (error) {
       console.error("Error logging out: ", error);
-  }
-};
-useEffect(() => {
-  const unsubscribe = onAuthStateChanged(auth, (user) => {
+    }
+  };
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-          dispatch({ type: "authenticate", payload: true });
+        dispatch({ type: "authenticate", payload: true });
+        dispatch({ type: 'authenticateUserId', payload: user.uid });
       } else {
-          dispatch({ type: "authenticate", payload: false });
+        dispatch({ type: "authenticate", payload: false });
+        dispatch({ type: 'authenticateUserId', payload: null });
       }
-  });
-  return () => unsubscribe();
-}, [dispatch]);
+    });
+    return () => unsubscribe();
+  }, [dispatch]);
 
-
-  useEffect(() =>{
-    const timer = setTimeout(() =>{
-      dispatch({type:"launchScreen", payload:false})
-    },3000)
-    return () => clearTimeout(timer)
-  }, [dispatch])
-
-
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      dispatch({ type: "launchScreen", payload: false });
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [dispatch]);
 
   return (
     <div
-    className={`w-auto h-auto ${
-      darkTheme ? 'bg-[#1C0F0D] text-white' : 'bg-white text-[#1C0F0D]'
-    } relative`}
-  >
-    <ToggleTheme />
-    <Button onClick={handleLogout} className="bg-red-600">Logout</Button>
-    <BrowserRouter>
-      {launchScreen ? (
-        <Launch />
-      ) : (
-        <Routes>
-          {/* Public Routes */}
-          {!authenticate ? (
-            <>
-              <Route path="/signup" element={<Signup />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="*" element={<Navigate to="/login" replace />} />
-            </>
-          ) : (
-            <>
-              {/* Authenticated Routes */}
+      className={`w-auto h-auto ${
+        darkTheme ? 'bg-[#1C0F0D] text-white' : 'bg-white text-[#1C0F0D]'
+      } relative`}
+    >
+      <ToggleTheme />
+      <Button onClick={handleLogout} className="bg-red-600">Logout</Button>
+      <BrowserRouter>
+        {launchScreen ? (
+          <Launch />
+        ) : (
+          <Routes>
+            {/* Onboarding Routes */}
+            {!authenticate && !userId ? (
+              <>
               <Route path="/" element={<OnBoardingScreen />}>
-                <Route path="/getinspired" index element={<FirstScreen />} />
+              <Route path="/" element={<Navigate to="/getinspired" />}/>
+                <Route path="/getinspired"  element={<FirstScreen />} />
                 <Route path="/increasedskill" element={<SecondScreen />} />
                 <Route path="/welcome" element={<Welcome />} />
               </Route>
-              <Route path="/dashboard" element={<Dashbaord />}>
-                <Route path="homepage" index element={<Homepage />} />
-              </Route>
-              <Route path="/cookinglevel" element={<CookingLevel />} />
-              <Route path="/foodpreference" element={<FoodPreference />} />
-              <Route path="/allergies" element={<Alligies />} />
-              <Route path="/update-profile" element={<UpdateProfile />} />
-              <Route path="*" element={<Navigate to="/dashboard/homepage" replace />} />
-            </>
-          )}
-        </Routes>
-      )}
-    </BrowserRouter>
-  </div>
-);
-}
+                     <Route path="/signup" element={<Signup />} />
+                     <Route path="/login" element={<Login />} />
+                     <Route path="/cookinglevel" element={<CookingLevel />} />
+                     <Route path="/foodpreference" element={<FoodPreference />} />
+                     <Route path="/allergies" element={<Alligies />} />
+              </>
+            ) : null}
 
+            {/* Authentication Routes */}
+            {!authenticate && userId ? (
+              <>
+                <Route path="/signup" element={<Signup />} />
+                <Route path="/login" index element={<Login />} />
+                <Route path="*" element={<Navigate to="/login" replace />} />
+              </>
+            ) : null}
+
+            {/* Authenticated Routes */}
+            {authenticate && userId ? (
+              <>
+                <Route path="/dashboard" element={<Dashbaord />}>
+                  <Route path="homepage" index element={<Homepage />} />
+                </Route>
+                <Route path="/update-profile" element={<UpdateProfile />} />
+                <Route path="*" element={<Navigate to="/dashboard/homepage" replace />} />
+              </>
+            ) : null}
+          </Routes>
+        )}
+      </BrowserRouter>
+    </div>
+  );
+}
 
 export default App;
